@@ -21,7 +21,7 @@ def page_not_found(e):
     """Return a custom 404 error."""
     return 'Sorry, nothing at this URL.', 404
 
-@app.route('/get_updates')
+@app.route('/get_updates/<word>')
 def updates(word):
     u = get_updates(word)
     return u
