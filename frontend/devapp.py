@@ -1,25 +1,25 @@
 
 # coding: utf-8
 
-# In[17]:
+# In[1]:
 
 from myapp import *
 from flask import request
 
 
-# In[13]:
+# In[2]:
 
 app = create_app()
 
 
-# In[9]:
+# In[3]:
 
 @app.route("/")
 def hello():
     return ApiResult("Hello World!")
 
 
-# In[10]:
+# In[4]:
 
 @app.route('/add')
 def add_numbers():
@@ -28,6 +28,11 @@ def add_numbers():
     if a is None or b is None:
         raise ApiException('Numbers must be integers')
     return ApiResult({'sum': a + b})
+
+
+# In[6]:
+
+#app.run(host="0.0.0.0")
 
 
 # In[ ]:
