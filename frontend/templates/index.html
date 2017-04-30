@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+    <title>Open Data INnovation</title>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+        .wrapper {
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            margin: 0 auto -50px; /* the bottom margin is the negative value of the footer's height */
+            background:#eee;
+        }
+
+        #container {
+            width:100%;
+            height:100%;
+        }
+        /* column container */
+        .colmask {
+            clear:both;
+            float:left;
+            width:100%;         /* width of whole page */
+            overflow:hidden;        /* This chops off any overhanging divs */
+        }
+        /* common column settings */
+        .colright,
+        .colmid,
+        .colleft {
+            float:left;
+            width:100%;
+            position:relative;
+        }
+        .col1,
+        .col2,
+        .col3 {
+            float:left;
+            position:relative;
+            padding:0 0 0 0;
+            overflow:hidden;
+        }
+        /* 2 Column (right menu) settings */
+        .rightmenu {
+            background:#eee;        /* right column background colour */
+        }
+        .rightmenu .colleft {
+            right:47%;          /* right column width */
+            background:#fff;        /* left column background colour */
+        }
+        .rightmenu .col1 {
+            width:55%;          /* left column content width (left column width minus left and right padding) */
+            left:45%;           /* (right column width) plus (left column left padding) */
+        }
+        .rightmenu .col2 {
+            width:45%;          /* right column content width (right column width minus left and right padding) */
+            left:46%;           /* (right column width) plus (left column left and right padding) plus (right column left padding) */
+        }
+
+    </style>
+</head>
+<body>
+<div id="container"></div>
+
+
+<script src="/static/jquery.min.js"></script>
+<script src="/static/sigma.min.js"></script>
+<script src="/static/plugins/sigma.layout.forceAtlas2/supervisor.js"></script>
+<script src="/static/plugins/sigma.layout.forceAtlas2/worker.js"></script>
+<script src="/static/plugins/sigma.layout.noverlap.min.js"></script>
+<script> src="/static/plugins/sigma.plugins.animate/sigma.plugins.animate.js"</script>
+<script>
+// Let's first initialize sigma:
+var s = new sigma('container');
+
+s.settings({
+    nodeColor: 'orange',
+    defaultNodeColor: 'blue',
+    edgeColor: 'default',
+    defaultEdgeColor: 'gray',
+    minNodeSize: 8,
+    maxNodeSize: 16
+});
+
+var config = {
+  nodeMargin: 3.0,
+  scaleNodes: 1.3
+};
+
+// Configure the algorithm
+s.config=config;
+
+
+function isEmpty(ob){
+    for(var i in ob){
+        return false;
+    }
+    return true;
+}
+
+function onNodeClick(event) {
+    var embed = event.data.node.embed
+    $('#status').html(embed)
+}
+
+s.bind('clickNode', onNodeClick);
+
+//ajax call
+function get_updates() {
+    //make ajax call
+    query=window.location.search.substr(1).split("=")[1];
+    //console.log(query);
+    $.getJSON("/concept/"+query, function(json) {
+        //console.log(json); 
+        if (isEmpty(json)) return;
+
+        json.nodes.forEach(function(node) {
+            if (s.graph.nodes(node.id) === undefined) {
+                //console.log(node);
+                s.graph.addNode(node);
+            }
+        });
+
+
+        json.edges.forEach(function(edge) {
+            if (s.graph.edges(edge.id) === undefined) {
+                console.log(edge);
+                s.graph.addEdge(edge);
+            }
+        });
+        s.graph.nodes().forEach(function(node, i, a) {
+          node.x = Math.cos(Math.PI * 2 * i / a.length);
+          node.y = Math.sin(Math.PI * 2 * i / a.length);
+            node.size = 3;
+        });
+
+    // Start the layout:
+        s.startForceAtlas2();
+        setTimeout(function() { s.stopForceAtlas2(); }, 500)
+
+
+        //s.stopForceAtlas2();
+        //s.graph.addNode("1");
+         
+        //s.refresh();
+        //console.log(s.layout);
+        //s.refresh();
+        //s.startForceAtlas2();
+        //console.log(s.layout);
+        //s.refresh();
+        //s.startNoverlap();
+
+    });
+};
+
+//render first nodes
+get_updates();
+
+//start streaming
+//var interval = setInterval(function(){ get_updates(); }, 10000);
+
+</script>
+
+</body>
+</html>

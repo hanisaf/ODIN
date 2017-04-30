@@ -20,13 +20,16 @@ class ApiResult(object):
 
 # In[ ]:
 
-class ApiException(object):
+class ApiException(BaseException):
     def __init__(self, message, status=400):
         self.message = message
         self.status = status
     
-    def to_result(self):
+    def to_response(self):
         return ApiResult({'message':self.message}, status=self.status)
+    
+    def to_result(self):
+        return self.to_response()
 
 
 # In[10]:
@@ -41,16 +44,6 @@ class ApiFlask(Flask):
     
 
 
-# In[11]:
-
-
-
-
-# In[12]:
-
-
-
-
 # In[13]:
 
 def create_app(config=None):
@@ -59,21 +52,6 @@ def create_app(config=None):
     #register_error_handlers(app)
     #register_blueprints(app)
     return app
-
-
-# In[28]:
-
-e=ApiException('err')
-
-
-# In[29]:
-
-type(e)
-
-
-# In[31]:
-
-e.to_result().to_response()
 
 
 # In[ ]:

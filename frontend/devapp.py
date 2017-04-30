@@ -1,22 +1,39 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[5]:
 
 from myapp import *
-from flask import request
+from similarity import gen_concept
+from flask import request, render_template
 
 
-# In[2]:
+# In[6]:
 
 app = create_app()
 
 
-# In[3]:
+# In[ ]:
 
-@app.route("/")
+@app.route('/search')
+def index():
+    return render_template('index.html')
+
+
+# In[15]:
+
+@app.route("/hello")
 def hello():
-    return ApiResult("Hello World!")
+    """Return a friendly HTTP greeting."""
+    return ApiResult('Welcome to ODIN!')
+
+
+# In[ ]:
+
+@app.route('/concept/<word>')
+def concept(word):
+    u = gen_concept(word)
+    return ApiResult(u)
 
 
 # In[4]:
@@ -30,9 +47,26 @@ def add_numbers():
     return ApiResult({'sum': a + b})
 
 
-# In[6]:
+# In[3]:
 
-#app.run(host="0.0.0.0")
+@app.errorhandler(404)
+def page_not_found(e):
+    """Return a custom 404 error."""
+    return 'Sorry, nothing at this URL.\nCheck /help for more info', 404
+
+
+# In[ ]:
+
+@app.route('/help')
+def help():
+    return ApiResult(map(lambda x: x.__repr__(),list(app.url_map.iter_rules())))
+
+
+# In[ ]:
+
+# Will need it to test outside of App Engine
+if __name__ == '__main__':
+    app.run()
 
 
 # In[ ]:
