@@ -11755,6 +11755,7 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="kn">as</span> <span class="nn">nx</span>
 <span class="kn">from</span>  <span class="nn">networkx.readwrite.json_graph</span> <span class="kn">import</span> <span class="n">node_link_data</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
 </pre></div>
 
 </div>
@@ -11792,33 +11793,18 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">gen_concept</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">word</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-            <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
-            <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">word</span><span class="p">)</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">en</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">en</span><span class="p">)</span>
-                <span class="n">en</span> <span class="o">=</span> <span class="n">en</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">rgraph</span><span class="o">=</span><span class="n">node_link_data</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;key&#39;</span><span class="p">))</span>
-            <span class="n">nodes</span> <span class="o">=</span> <span class="n">rgraph</span><span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">]</span>
-            <span class="n">edges</span> <span class="o">=</span> <span class="n">rgraph</span><span class="p">[</span><span class="s1">&#39;links&#39;</span><span class="p">]</span>
-            <span class="c1">#nodes=[{&quot;id&quot;:&quot;n%d&quot;%i, &quot;label&quot;:results[i][0]}  for i in range(len(results))]</span>
-            <span class="c1">#edges=[]</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">nodes</span><span class="o">=</span><span class="n">edges</span><span class="o">=</span><span class="p">[]</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="n">graph</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nodes&quot;</span><span class="p">:</span><span class="n">nodes</span><span class="p">,</span> <span class="s2">&quot;edges&quot;</span><span class="p">:</span><span class="n">edges</span><span class="p">}</span>
-        <span class="c1">#result_json = json.dumps(graph)</span>
-    <span class="k">return</span> <span class="n">graph</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">class</span> <span class="nc">JsonGraph</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">attr_dict</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attr</span><span class="p">):</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="o">**</span><span class="n">attr</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">jsonify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rgraph</span><span class="o">=</span><span class="n">node_link_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;key&#39;</span><span class="p">))</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">rgraph</span><span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">]</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">rgraph</span><span class="p">[</span><span class="s1">&#39;links&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;nodes&quot;</span><span class="p">:</span><span class="n">nodes</span><span class="p">,</span> <span class="s2">&quot;edges&quot;</span><span class="p">:</span><span class="n">edges</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -11839,6 +11825,73 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">gen_concept</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">JsonGraph</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">word</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="n">topn</span><span class="o">=</span><span class="n">topn</span><span class="p">)</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">word</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">en</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">en</span><span class="p">)</span>
+            <span class="n">en</span> <span class="o">=</span> <span class="n">en</span> <span class="o">+</span> <span class="mi">1</span>                
+    <span class="k">return</span> <span class="n">G</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">gen_concepts</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">word</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">results</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="n">topn</span><span class="o">=</span><span class="n">topn</span><span class="p">)</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">JsonGraph</span><span class="p">()</span>
+    
+    <span class="n">i</span><span class="o">=-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1">#G.add_edge(0, i, id=en)</span>
+        <span class="c1">#en = en + 1                </span>
+    <span class="k">return</span> <span class="n">G</span>    
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>def gen_concepts(words, topn=10):
+
+    nodes=[]
+    edges=[]
+    for word in words:
+        print(word)
+        H = gen_concept(word, topn=topn)
+        #nodes.append(H.nodes(data=True))
+        #edges.append(H.edges(data=True))
+        nodes = nodes + H.nodes(data=True)
+        edges = edges + H.edges(data=True)
+
+    G = JsonGraph()
+    #G.add_nodes_from(nodes)
+    G.add_edges_from(edges)
+    print(nodes)
+    return nodes,edges
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>

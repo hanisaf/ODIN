@@ -11812,8 +11812,30 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/concept/&lt;word&gt;&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">concept</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">gen_concept</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ApiResult</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">gen_concept</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">.</span><span class="n">jsonify</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ApiResult</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ApiException</span><span class="p">(</span><span class="s1">&#39;Keyword not found&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/concepts/&lt;word1&gt;,&lt;word2&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">concepts</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">gen_concepts</span><span class="p">([</span><span class="n">word1</span><span class="p">,</span> <span class="n">word2</span><span class="p">])</span><span class="o">.</span><span class="n">jsonify</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ApiResult</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ApiException</span><span class="p">(</span><span class="s1">&#39;Keyword not found&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>

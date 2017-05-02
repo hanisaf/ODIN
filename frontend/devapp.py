@@ -32,8 +32,22 @@ def hello():
 
 @app.route('/concept/<word>')
 def concept(word):
-    u = gen_concept(word)
-    return ApiResult(u)
+    try:
+        u = gen_concept(word).jsonify()
+        return ApiResult(u)
+    except KeyError:
+        raise ApiException('Keyword not found')
+
+
+# In[ ]:
+
+@app.route('/concepts/<word1>,<word2>')
+def concepts(words):
+    try:
+        u = gen_concepts([word1, word2]).jsonify()
+        return ApiResult(u)
+    except KeyError:
+        raise ApiException('Keyword not found')
 
 
 # In[4]:
