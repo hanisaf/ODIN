@@ -4,7 +4,7 @@
 # In[5]:
 
 from myapp import *
-from similarity import gen_concept
+from similarity import gen_concepts
 from flask import request, render_template
 
 
@@ -15,9 +15,16 @@ app = create_app()
 
 # In[ ]:
 
+@app.route('/bootstrap')
+def f():
+    return render_template('bootstrap.html')
+
+
+# In[ ]:
+
 @app.route('/search')
 def index():
-    return render_template('index.html')
+    return render_template('bootstrap.html')
 
 
 # In[15]:
@@ -30,10 +37,13 @@ def hello():
 
 # In[ ]:
 
-@app.route('/concept/<word>')
-def concept(word):
+@app.route('/concept/<query>')
+def concept(query):
+    app.logger.info(query)
+    words = query.split("+")
+    
     try:
-        u = gen_concept(word).jsonify()
+        u = gen_concepts(words).jsonify()
         return ApiResult(u)
     except KeyError:
         raise ApiException('Keyword not found')
@@ -41,7 +51,6 @@ def concept(word):
 
 # In[ ]:
 
-@app.route('/concepts/<word1>,<word2>')
 def concepts(words):
     try:
         u = gen_concepts([word1, word2]).jsonify()
