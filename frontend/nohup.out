@@ -1,0 +1,125 @@
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger pin code: 282-203-132
+128.192.121.93 - - [03/May/2017 10:41:02] "GET /o),index:'*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'*')),sort:!(_score,desc))din HTTP/1.1" 404 -
+128.192.121.93 - - [03/May/2017 10:41:02] "GET /favicon.ico HTTP/1.1" 404 -
+128.192.121.93 - - [03/May/2017 10:41:07] "GET /odin HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:07] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:07] "GET /static/sigma.min.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:07] "GET /static/jquery.min.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:08] "GET /static/plugins/sigma.layout.forceAtlas2/supervisor.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:08] "GET /static/plugins/sigma.layout.forceAtlas2/worker.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:08] "GET /static/plugins/sigma.layout.noverlap.min.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:08] "GET /static/plugins/sigma.plugins.animate/sigma.plugins.animate.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:08] "GET /static/bootstrap/js/jquery.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:08] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in devapp [/root/ODIN/frontend/devapp.py:43]:
+undefined
+--------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/root/anaconda2/lib/python2.7/SocketServer.py", line 290, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/root/anaconda2/lib/python2.7/SocketServer.py", line 318, in process_request
+    self.finish_request(request, client_address)
+  File "/root/anaconda2/lib/python2.7/SocketServer.py", line 331, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/root/anaconda2/lib/python2.7/SocketServer.py", line 652, in __init__
+    self.handle()
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/serving.py", line 228, in handle
+    rv = BaseHTTPRequestHandler.handle(self)
+  File "/root/anaconda2/lib/python2.7/BaseHTTPServer.py", line 340, in handle
+    self.handle_one_request()
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/serving.py", line 263, in handle_one_request
+    return self.run_wsgi()
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/serving.py", line 205, in run_wsgi
+    execute(self.server.app)
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/serving.py", line 195, in execute
+    for data in application_iter:
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/debug/__init__.py", line 284, in debug_application
+    app_iter = self.app(environ, start_response)
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/cli.py", line 177, in __call__
+    return self._app(environ, start_response)
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/app.py", line 1994, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/ODIN/frontend/devapp.py", line 50, in concept
+    raise ApiException('Keyword not found')
+ApiException
+128.192.121.93 - - [03/May/2017 10:41:08] "GET /favicon.ico HTTP/1.1" 404 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /odin HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/jquery.min.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/sigma.min.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/plugins/sigma.layout.forceAtlas2/supervisor.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/plugins/sigma.layout.forceAtlas2/worker.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/plugins/sigma.layout.noverlap.min.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/plugins/sigma.plugins.animate/sigma.plugins.animate.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/bootstrap/js/jquery.js HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /static/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in devapp [/root/ODIN/frontend/devapp.py:43]:
+undefined
+--------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/root/anaconda2/lib/python2.7/SocketServer.py", line 290, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/root/anaconda2/lib/python2.7/SocketServer.py", line 318, in process_request
+    self.finish_request(request, client_address)
+  File "/root/anaconda2/lib/python2.7/SocketServer.py", line 331, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/root/anaconda2/lib/python2.7/SocketServer.py", line 652, in __init__
+    self.handle()
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/serving.py", line 228, in handle
+    rv = BaseHTTPRequestHandler.handle(self)
+  File "/root/anaconda2/lib/python2.7/BaseHTTPServer.py", line 340, in handle
+    self.handle_one_request()
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/serving.py", line 263, in handle_one_request
+    return self.run_wsgi()
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/serving.py", line 205, in run_wsgi
+    execute(self.server.app)
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/serving.py", line 195, in execute
+    for data in application_iter:
+  File "/root/anaconda2/lib/python2.7/site-packages/werkzeug/debug/__init__.py", line 284, in debug_application
+    app_iter = self.app(environ, start_response)
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/cli.py", line 177, in __call__
+    return self._app(environ, start_response)
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/app.py", line 1994, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/anaconda2/lib/python2.7/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/ODIN/frontend/devapp.py", line 50, in concept
+    raise ApiException('Keyword not found')
+ApiException
+128.192.121.93 - - [03/May/2017 10:41:23] "GET /favicon.ico HTTP/1.1" 404 -
+128.192.121.93 - - [03/May/2017 10:41:41] "GET /search?query=US+Canada HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in devapp [/root/ODIN/frontend/devapp.py:43]:
+US+Canada
+--------------------------------------------------------------------------------
+128.192.121.93 - - [03/May/2017 10:41:41] "GET /concept/US+Canada HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:41:41] "GET /favicon.ico HTTP/1.1" 404 -
+128.192.121.93 - - [03/May/2017 10:42:32] "GET /search?query=food HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in devapp [/root/ODIN/frontend/devapp.py:43]:
+food
+--------------------------------------------------------------------------------
+128.192.121.93 - - [03/May/2017 10:42:32] "GET /concept/food HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:42:32] "GET /favicon.ico HTTP/1.1" 404 -
+128.192.121.93 - - [03/May/2017 10:42:47] "GET /search?query=test HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in devapp [/root/ODIN/frontend/devapp.py:43]:
+test
+--------------------------------------------------------------------------------
+128.192.121.93 - - [03/May/2017 10:42:47] "GET /concept/test HTTP/1.1" 200 -
+128.192.121.93 - - [03/May/2017 10:42:47] "GET /favicon.ico HTTP/1.1" 404 -
