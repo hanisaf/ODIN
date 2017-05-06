@@ -31,6 +31,7 @@ def f():
 # In[ ]:
 
 @app.route('/search')
+@app.route('/odin')
 def index():
     return render_template('bootstrap.html')
 
