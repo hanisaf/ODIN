@@ -176,8 +176,15 @@ function isEmpty(ob){
 }
 
 function onNodeClick(event) {
-    var embed = event.data.node.embed
-    $('#status').html(embed)
+    var url = "/find/"+event.data.node.label
+    //var hi = $.getJSON("/find/"+event.data.node.label)
+    //console.log(hi)
+    //$('#status').html(embed)
+    $.getJSON(url).done(function(response) {
+        console.log(response); //here's your response
+        alert(response);
+
+    });    
 }
 
 s.bind('clickNode', onNodeClick);

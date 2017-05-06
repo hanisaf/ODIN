@@ -5,12 +5,20 @@
 
 from myapp import *
 from similarity import gen_concepts
+from search import search
 from flask import request, render_template
 
 
 # In[6]:
 
 app = create_app()
+
+
+# In[ ]:
+
+@app.route('/find/<term>')
+def find(term):
+    return ApiResult(search(term))
 
 
 # In[ ]:
@@ -23,7 +31,6 @@ def f():
 # In[ ]:
 
 @app.route('/search')
-@app.route('/odin')
 def index():
     return render_template('bootstrap.html')
 
